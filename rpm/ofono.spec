@@ -96,7 +96,7 @@ autoreconf --force --install
     --disable-add-remove-context \
     --disable-isimodem \
     --disable-qmimodem \
-    --with-systemdunitdir="/%{_lib}/systemd/system"
+    --with-systemdunitdir="%{_libdir}/systemd/system"
 
 make %{_smp_mflags}
 
@@ -109,9 +109,9 @@ rm -rf %{buildroot}
 %make_install
 
 mkdir -p %{buildroot}/%{_sysconfdir}/ofono/push_forwarder.d
-mkdir -p %{buildroot}/%{_lib}/systemd/system/network.target.wants
+mkdir -p %{buildroot}/%{_libdir}/systemd/system/network.target.wants
 mkdir -p %{buildroot}/var/lib/ofono
-ln -s ../ofono.service %{buildroot}/%{_lib}/systemd/system/network.target.wants/ofono.service
+ln -s ../ofono.service %{buildroot}/%{_libdir}/systemd/system/network.target.wants/ofono.service
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
@@ -137,8 +137,8 @@ systemctl daemon-reload ||:
 %license COPYING
 %config %{_sysconfdir}/dbus-1/system.d/*.conf
 %{_sbindir}/*
-/%{_lib}/systemd/system/network.target.wants/ofono.service
-/%{_lib}/systemd/system/ofono.service
+%{_libdir}/systemd/system/network.target.wants/ofono.service
+%{_libdir}/systemd/system/ofono.service
 %dir %{_sysconfdir}/ofono/
 %dir %{_sysconfdir}/ofono/push_forwarder.d
 # This file is part of phonesim and not needed with ofono.
